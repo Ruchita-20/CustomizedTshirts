@@ -1,0 +1,22 @@
+name: Deploy HTML Site
+
+on:
+  push:
+    branches:
+      - main   # Deploy only when code lands in main
+  pull_request:
+    branches:
+      - main   # Run checks when PR is created for main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .   # root folder since it's plain HTML
